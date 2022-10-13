@@ -26,7 +26,7 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*
 
 
-# Update below according to https://jena.apache.org/download/ 
+# Update below according to https://jena.apache.org/download/
 # and checksum for apache-jena-fuseki-4.x.x.tar.gz.sha512
 ENV FUSEKI_SHA512 21850b9d106d40962cb8358cf5731509ed9f38be7f47a0fc7e2fa22247d89faf7b4ef3ecb58cac590b7592b3b8340b80214ab7ca67b9d1231acb68df62b8bd3d
 ENV FUSEKI_VERSION 4.4.0
@@ -65,7 +65,7 @@ RUN     (curl --location --silent --show-error --fail --retry-connrefused --retr
 # Test the install by testing it's ping resource. 20s sleep because Docker Hub.
 RUN  $FUSEKI_HOME/fuseki-server & \
      sleep 20 && \
-     curl -sS --fail 'http://localhost:3030/$/ping' 
+     curl -sS --fail 'http://localhost:3030/$/ping'
 
 # No need to kill Fuseki as our shell will exit after curl
 

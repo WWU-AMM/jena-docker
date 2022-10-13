@@ -240,7 +240,7 @@ and inspect `/fuseki` with the shell. Remember to restart fuseki afterwards:
 
 ### Additional JARs on Fuseki classpath
 
-If you need to add additional JARs to the classpath, but do not want to 
+If you need to add additional JARs to the classpath, but do not want to
 modify the volume `/fuseki`, then add the JARs to
 `/fuseki-extra` which will be added as `/fuseki/extra` on start.
 
@@ -254,7 +254,7 @@ For any feedback or questions on Jena, Fuseki or SPARQL, please use the
 For any issues with Jena or Fuseki, feel free to
 [raise a bug](https://jena.apache.org/help_and_support/bugs_and_suggestions.html).
 
-For any issues with the packaging in this Docker image, or 
+For any issues with the packaging in this Docker image, or
 its [Dockerfile](https://github.com/stain/jena-docker/),
 please raise a [pull request](https://github.com/stain/jena-docker/pulls) or
 [issue](https://github.com/stain/jena-docker/issues).

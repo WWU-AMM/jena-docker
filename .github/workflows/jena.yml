@@ -75,4 +75,4 @@ jobs:
           echo "<http://example.com/a> <http://example.com/b> <http://example.com/c> ." > /tmp/example.ttl
           docker run --volume /tmp:/rdf ${{ needs.metadata.outputs.tags }} riot example.ttl > /tmp/example.nq
           grep --quiet example.com /tmp/example.nq
-          
+
