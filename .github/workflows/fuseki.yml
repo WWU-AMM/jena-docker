@@ -13,31 +13,65 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 ---
-name: Build
+name: Fuseki
 
 on:
   - push
   - pull_request
 
 jobs:
+  metadata:
+      runs-on: ubuntu-22.04
+      steps:
+          - uses: actions/checkout@v3
+          - name: Docker meta
+            id: meta
+            uses: docker/metadata-action@v4
+            with:
+                images: ghcr.io/${{github.repository}}/jena-fuseki
+                flavor: |
+                    latest=false
+                tags: |
+                    type=sha,suffix=-g{{branch}}
+      outputs:
+          tags: ${{steps.meta.outputs.tags}}
   build:
-    runs-on: ubuntu-20.04
+    needs: [metadata]
+    runs-on: ubuntu-22.04
     if: "!contains(github.event.head_commit.message, 'ci skip')"
+    permissions:
+      packages: write
     steps:
       - name: Check out source code
-        uses: actions/checkout@v2
-      - name: Build images
-        run: |
-          docker build -t jena jena
-          docker build -t jena-fuseki jena-fuseki
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Github Packages
+        uses: docker/login-action@v2
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        uses: docker/build-push-action@v3
+        with:
+            context: jena
+            push: true
+            tags: ${{ needs.metadata.outputs.tags }}
+  test:
+    needs: [metadata, build]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Login to Github Packages
+        uses: docker/login-action@v2
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
       - name: Test images
         run: |
-          docker run jena riot --version  # Does it run at all?
-          echo "<http://example.com/a> <http://example.com/b> <http://example.com/c> ." > /tmp/example.ttl
-          docker run --volume /tmp:/rdf jena riot example.ttl > /tmp/example.nq
-          grep --quiet example.com /tmp/example.nq
-          sudo service docker restart ; sleep 10 # workaround for https://github.com/travis-ci/travis-ci/issues/4778
-          docker run --name fuseki -p 127.0.0.1:3030:3030 -d jena-fuseki
+          docker run --name fuseki -p 127.0.0.1:3030:3030 -d ${{ needs.metadata.outputs.tags }}
           sleep 8
           curl --silent --output /dev/null  --show-error -L --max-redirs 3 --retry 3 --retry-delay 4 --max-time 30 http://127.0.0.1:3030/
           docker logs fuseki
