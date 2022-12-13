@@ -1,21 +1,17 @@
 # Docker files for Jena
 
-[![Build](https://github.com/WWU-AMM/jena-docker/actions/workflows/main.yml/badge.svg)](https://github.com/WWU-AMM/jena-docker/actions/workflows/main.yml)
+[![Build](https://github.com/renefritze/jena-docker/actions/workflows/jena.yml/badge.svg)](https://github.com/renefritze/jena-docker/actions/workflows/jena.yml) [![Build](https://github.com/renefritze/jena-docker/actions/workflows/fuseki.yml/badge.svg)](https://github.com/renefritze/jena-docker/actions/workflows/fuseki.yml)
 
-This is an updated fork of <https://github.com/stain/jena-docker>
+This is an updated, but unmaintained fork of <https://github.com/stain/jena-docker>
+with open Pull Requests merged.
 
 This repository hosts [Docker](https://www.docker.com/) recipes for distributing
 [Apache Jena](http://jena.apache.org/).
 
-Two Docker images are available:
+Two Docker images are available [here](https://github.com/renefritze?tab=packages&repo_name=jena-docker)
 
  - [jena](jena/) - `riot` command line and friends, for use on the command line
- - [fuseki](fuseki/) - the [Fuseki](http://jena.apache.org/documentation/fuseki2/) server with SPARQL endpoint and web interface
-
-These are currently available from the Docker Hub as:
-
- - [stain/jena](https://hub.docker.com/r/stain/jena/)
- - [stain/jena-fuseki](https://hub.docker.com/r/stain/jena-fuseki/)
+- [jena-fuseki](jena-fuseki/) - the [Fuseki](http://jena.apache.org/documentation/fuseki2/) server with SPARQL endpoint and web interface
 
 Note that although these Docker images are based on the official Apache Jena releases
 and do not alter them in any way, they do **not** constitute official releases

@@ -16,8 +16,9 @@
 name: Fuseki
 
 on:
-  - push
-  - pull_request
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
   metadata:
@@ -56,7 +57,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v3
         with:
-            context: jena
+            context: jena-fuseki
             push: true
             tags: ${{ needs.metadata.outputs.tags }}
   test:
