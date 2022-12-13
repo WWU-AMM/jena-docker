@@ -1,6 +1,8 @@
 # Docker files for Jena
 
-[![Build](https://github.com/stain/jena-docker/actions/workflows/main.yml/badge.svg)](https://github.com/stain/jena-docker/actions/workflows/main.yml)
+[![Build](https://github.com/WWU-AMM/jena-docker/actions/workflows/main.yml/badge.svg)](https://github.com/WWU-AMM/jena-docker/actions/workflows/main.yml)
+
+This is an updated fork of <https://github.com/stain/jena-docker>
 
 This repository hosts [Docker](https://www.docker.com/) recipes for distributing
 [Apache Jena](http://jena.apache.org/).
